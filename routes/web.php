@@ -43,6 +43,12 @@ Route::get('/emails/tracking', function () {
     return view('vendor.emailTrakingViews.index', ['emails' => $emails]);
 });
 
+Route::group(['prefix' => 'sms'], function () {
+   Route::get('/', 'SMSController@store');
+   Route::get('/{id}', 'SMSController@info');
+   Route::post('/create', 'SMSController@create');
+});
+
 Route::group(['prefix' => 'users'], function () {
     Route::get('/', 'UserController@store');
     Route::get('/search', 'UserController@search');

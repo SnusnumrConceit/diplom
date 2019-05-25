@@ -13,6 +13,12 @@
                             Emails
                         </router-link>
                     </li>
+                    <li :class="{ 'active': menu.isActive.sms, 'has-sub': menu.isActive.sms}" @click="active('sms', 'menu')">
+                        <router-link :to="'/sms'">
+                            <i class="far fa-envelope"></i>
+                            SMS
+                        </router-link>
+                    </li>
                     <!--<li :class="{ 'active': menu.isActive.users, 'has-sub': menu.isActive.users}" @click="active('users', 'menu')">-->
                         <!--<router-link :to="'/users'">-->
                             <!--<i class="fas fa-users"></i>-->
@@ -245,7 +251,7 @@
     methods: {
       active(link, nav) {
         this[nav].isActive = {};
-        this[nav].isActive.link = true;
+        this[nav].isActive[link] = true;
       },
 
         ...mapActions('Auth', {
