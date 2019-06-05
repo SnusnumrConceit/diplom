@@ -26,6 +26,9 @@ Vue.component('paginate', Paginate);
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
+import VueMask from 'v-mask';
+Vue.use(VueMask);
+
 import store from './store/index';
 
 /** Vuex Configuration **/

@@ -9,6 +9,7 @@
 namespace App\Services;
 
 
+use App\Http\Resources\SMS\SMSCollection;
 use App\Models\SMS;
 use GuzzleHttp\Client;
 
@@ -19,7 +20,7 @@ class SMSService
         try {
             $sms = SMS::paginate(25);
             return response()->json([
-                'sms' => $sms
+                'sms' => new SMSCollection($sms)
             ], 200);
         } catch (\Exception $error) {
             return response()->json([
@@ -28,11 +29,13 @@ class SMSService
             ]);
         }
     }
-
+    # отправка SMS-сообщения
     public function create($request)
     {
         try {
+            # проверка на корректность значения
             $request->validated();
+            # сохранение СМС-сообщения в БД
             $sms = SMS::create([
                 'phone' => $request->phone,
                 'message' => $request->message,
@@ -42,20 +45,21 @@ class SMSService
             $client = new Client();
             $phone = $request->phone;
             $api_key = env('SMS_API');
-            $message = $request->message . ' ' . $request->link;
+            $message = $this->getMessage($request->message, $request->link, $sms->id);
 
+            # формирование запроса к сервису отправки SMS-сообщений
             $url = 'https://smspilot.ru/api.php'
                     .'?send='.urlencode( $message )
                     .'&to='.urlencode( $phone )
                     .'&apikey='.$api_key
                     .'&format=json';
 
+            # отправка запроса с последующим ожиданием ответа
             $response = file_get_contents($url);
-
             $response = json_decode($response);
 
-            if (! empty($response->error)) {
-                throw new \Exception('Не удалось отправить СМС-сообщение. ' . $response->error);
+            if (! empty($response->error) || ! empty($response->error->description_ru)) {
+                throw new \Exception('Не удалось отправить СМС-сообщение. ' . $response->error->description_ru);
             }
 
             return response()->json([
@@ -84,5 +88,15 @@ class SMSService
                 'msg' => $error->getMessage()
             ]);
         }
+    }
+
+    public function getPhone($phone)
+    {
+        return str_replace(['-', '+'], '', $phone);
+    }
+
+    public function getMessage($message, $link, $id)
+    {
+        return $message . ' ' . $link . '?id=' . $id . '&type=sms';
     }
 }

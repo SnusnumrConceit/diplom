@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\SMS;
+namespace App\Http\Resources\Audit;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class SMSCollection extends ResourceCollection
+class AuditCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

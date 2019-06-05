@@ -34,6 +34,8 @@ Route::group(['prefix' => 'emails'], function () {
     Route::get('/{id}/smtp_details', 'EmailController@getSMTPDetail')
         ->where('id', '[0-9]+');
 
+    Route::post('/log', 'EmailController@log');
+
     Route::post('/send', 'EmailController@sendEmail');
 
 });
@@ -47,6 +49,7 @@ Route::group(['prefix' => 'sms'], function () {
    Route::get('/', 'SMSController@store');
    Route::get('/{id}', 'SMSController@info');
    Route::post('/create', 'SMSController@create');
+   Route::post('/log', 'SMSController@log');
 });
 
 Route::group(['prefix' => 'users'], function () {
@@ -59,4 +62,10 @@ Route::group(['prefix' => 'users'], function () {
         ->where('id', '[0-9]+');
     Route::post('/update/{id}', 'UserController@update')
         ->where('id', '[0-9]+');;
+});
+
+Route::post('/link/log', 'SMSController@log');
+
+Route::group(['prefix' => 'audit'], function () {
+   Route::get('/', 'AuditController@store');
 });

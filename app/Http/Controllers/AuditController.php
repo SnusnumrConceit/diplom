@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SMSRequest;
-use App\Models\SMS;
 use App\Services\LogService;
-use App\Services\SMSService;
 use Illuminate\Http\Request;
 
-class SMSController extends Controller
+class AuditController extends Controller
 {
-    public $sms, $log;
+    public $audit;
 
-    public function __construct(SMSService $sms, LogService $log)
+    public function __construct(LogService $audit)
     {
-        $this->sms = $sms;
-        $this->log = $log;
+        $this->audit = $audit;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
     }
 
     /**
@@ -23,9 +29,9 @@ class SMSController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(SMSRequest $request)
+    public function create()
     {
-        return $this->sms->create($request);
+        //
     }
 
     /**
@@ -36,32 +42,27 @@ class SMSController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->sms->store($request);
+        return $this->audit->store($request);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SMS  $sMS
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function info(Request $request, int $id)
+    public function show($id)
     {
-        return $this->sms->info($id);
-    }
-
-    public function log(Request $request)
-    {
-        return $this->log->write($request);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SMS  $sMS
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(SMS $sMS)
+    public function edit($id)
     {
         //
     }
@@ -70,10 +71,10 @@ class SMSController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SMS  $sMS
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SMS $sMS)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -81,10 +82,10 @@ class SMSController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SMS  $sMS
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SMS $sMS)
+    public function destroy($id)
     {
         //
     }

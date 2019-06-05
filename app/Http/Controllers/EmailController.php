@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmailFormRequest;
 use App\Http\Requests\EmailRequest;
 use App\Models\Email;
+use App\Services\LogService;
 use App\Services\TrackingService;
 use Illuminate\Http\Request;
 use App\Services\EmailService;
@@ -12,12 +13,13 @@ use App\Services\EmailService;
 class EmailController extends Controller
 {
 
-    public $email, $tracking;
+    public $email, $tracking, $log;
 
-    public function __construct(EmailService $email, TrackingService $tracking)
+    public function __construct(EmailService $email, TrackingService $tracking, LogService $log)
     {
         $this->email = $email;
         $this->tracking = $tracking;
+        $this->log = $log;
     }
 
     /**
@@ -68,6 +70,11 @@ class EmailController extends Controller
     public function create(EmailRequest $request)
     {
         return $this->email->create($request);
+    }
+
+    public function write(Request $request)
+    {
+        return $this->log->write($request);
     }
 
     /**

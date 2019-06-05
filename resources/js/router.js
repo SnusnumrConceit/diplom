@@ -1,7 +1,9 @@
-import Emails from './components/emails/emails';
-import Users from './components/users/users';
-import Login from './components/templates/auth/login';
-import SMS from './components/sms/sms';
+import Emails from  './components/emails/emails';
+import Users  from  './components/users/users';
+import Login  from  './components/templates/auth/login';
+import SMS    from  './components/sms/sms';
+import Track  from  './components/templates/track';
+import Audit  from  './components/audit/audit';
 
 
 function isAuth(from, to, next) {
@@ -28,6 +30,17 @@ export const routes = [
     path: '/sms',
     name: 'SMS',
     component: SMS,
+    beforeEnter: isAuth
+  },
+  {
+    path: '/hello',
+    name: 'Track',
+    component: Track,
+  },
+  {
+    path: '/audit',
+    name: 'Audit',
+    component: Audit,
     beforeEnter: isAuth
   }
   // {

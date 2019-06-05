@@ -2,21 +2,28 @@
 <div>
     <aside class="menu-sidebar d-lg-block" v-if="user">
         <div class="logo">
-            <h2>Email-Tracking</h2>
+            <h2>Tracking</h2>
         </div>
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                    <li :class="{ 'active': menu.isActive.emails, 'has-sub': menu.isActive.emails}" @click="active('emails', 'menu')">
-                        <router-link :to="'/emails'">
-                            <i class="far fa-envelope"></i>
-                            Emails
-                        </router-link>
-                    </li>
+                    <!--<li :class="{ 'active': menu.isActive.emails, 'has-sub': menu.isActive.emails}" @click="active('emails', 'menu')">-->
+                        <!--<router-link :to="'/emails'">-->
+                            <!--<i class="far fa-envelope"></i>-->
+                            <!--Emails-->
+                        <!--</router-link>-->
+                    <!--</li>-->
                     <li :class="{ 'active': menu.isActive.sms, 'has-sub': menu.isActive.sms}" @click="active('sms', 'menu')">
                         <router-link :to="'/sms'">
                             <i class="far fa-envelope"></i>
                             SMS
+                        </router-link>
+                    </li>
+                    <li :class="{ 'active': menu.isActive.audit, 'has-sub': menu.isActive.audit}"
+                        @click="active('audit', 'menu')">
+                        <router-link :to="'/audit'">
+                            <i class="far fa-envelope"></i>
+                            Аудит
                         </router-link>
                     </li>
                     <!--<li :class="{ 'active': menu.isActive.users, 'has-sub': menu.isActive.users}" @click="active('users', 'menu')">-->
@@ -165,12 +172,14 @@
                                     <!--<div class="image">-->
                                     <!--<img src="images/icon/avatar-01.jpg" alt="John Doe" />-->
                                     <!--</div>-->
-                                    <div class="content" v-if="user && Object.keys(user).length">
+                                    <div class="content auth" v-if="user && Object.keys(user).length">
                                         <a class="js-acc-btn" href="#">
                                             {{ user.name }}
+                                            <i class="far fa-user"></i>
                                         </a>
                                         <a href="#" @click="logout()">
                                             Выйти
+                                            <i class="fas fa-sign-out-alt"></i>
                                         </a>
                                     </div>
                                     <!--<div class="account-dropdown js-dropdown">-->
@@ -265,14 +274,22 @@
         localStorage.removeItem('csrf_token');
         this.setUser({});
         this.$router.push({ name: 'Login'});
+      },
+
+      checkRoute(name) {
+        this.active(name.toLowerCase(), 'menu');
       }
     },
     created() {
-      this.active('emails', 'menu');
+      this.checkRoute(this.$route.name);
     }
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .auth {
+        a:after {
+            display: none;
+        }
+    }
 </style>

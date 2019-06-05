@@ -73,7 +73,7 @@
                     <label for="">
                         Номер телефона
                     </label>
-                    <input type="text" class="form-control" v-model="new_sms.phone">
+                    <input type="text" class="form-control" v-mask="'+7-###-###-##-##'" v-model="new_sms.phone">
                 </div>
                 <div class="form-group">
                     <label for="">

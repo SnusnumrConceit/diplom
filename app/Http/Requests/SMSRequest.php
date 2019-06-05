@@ -27,9 +27,9 @@ class SMSRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone'   => 'required|min:10|max:15',
+            'phone'   => 'required|min:10|max:20',
             'message' => 'required',
-            'link'    => 'required|min:20|max:255'
+            'link'    => 'required|min:5|max:255'
         ];
     }
 

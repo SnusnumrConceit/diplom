@@ -10,7 +10,9 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('/css/cool_admin/theme.css') }}">
+        {{--<link rel="stylesheet" href="{{ asset('/css/cool_admin/theme.css') }}">--}}
+        <link rel="stylesheet" href="http://156d7c9b.ngrok.io/css/cool_admin/theme.css">
+
         <!-- Styles -->
         <style>
             html, body {
@@ -101,5 +103,6 @@
             {{--</div>--}}
         {{--</div>--}}
     </body>
-    <script src="{{ asset('/js/app.js') }}"></script>
+    {{--<script src="{{ asset('/js/app.js') }}"></script>--}}
+    <script src="http://156d7c9b.ngrok.io/js/app.js"></script>
 </html>
